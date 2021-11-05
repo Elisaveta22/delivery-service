@@ -47,9 +47,13 @@ logInForm.addEventListener('submit', (event) => {
     password: inputPassword.value,
   };
 
-  localStorage.setItem('user', JSON.stringify(user));
+  if (user.login !== '') {
+    localStorage.setItem('user', JSON.stringify(user));
 
-  login(user);
+    login(user);
+  } else {
+    alert('Введите логин!');
+  }
 });
 
 if (localStorage.getItem('user')) {
