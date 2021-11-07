@@ -4,6 +4,18 @@ const changeTitle = (restaurant) => {
   const restaurantTitle = document.querySelector('.restaurant-title');
 
   restaurantTitle.textContent = restaurant.name;
+
+  const rating = document.querySelector('.rating');
+
+  rating.textContent = restaurant.stars;
+
+  const price = document.querySelector('.price');
+
+  price.textContent = `От ${restaurant.price} ₽`;
+
+  const category = document.querySelector('.category');
+
+  category.textContent = restaurant.kitchen;
 };
 
 const renderItems = (data) => {
