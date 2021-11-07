@@ -35,10 +35,13 @@ const renderItems = (data) => {
 
     a.addEventListener('click', (event) => {
       event.preventDefault();
+      if (localStorage.getItem('user')) {
+        localStorage.setItem('restaurant', JSON.stringify(item));
 
-      localStorage.setItem('restaurant', JSON.stringify(item));
-
-      window.location.href = '/restaurant.html';
+        window.location.href = '/restaurant.html';
+      } else {
+        modalAuth.style.display = 'flex';
+      }
     });
 
     cardsRestaurants.append(a);
