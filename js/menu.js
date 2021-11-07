@@ -1,5 +1,10 @@
-const restaurant = 'food-band';
 const cardsMenu = document.querySelector('.cards-menu');
+
+const changeTitle = (restaurant) => {
+  const restaurantTitle = document.querySelector('.restaurant-title');
+
+  restaurantTitle.textContent = restaurant.name;
+};
 
 const renderItems = (data) => {
   data.forEach(({ name, description, price, image }) => {
@@ -29,9 +34,17 @@ const renderItems = (data) => {
   });
 };
 
-fetch(`./db/${restaurant}.json`)
-  .then((response) => response.json())
-  .then((data) => renderItems(data))
-  .catch((error) => {
-    console.log(error);
-  });
+if (localStorage.getItem('restaurant')) {
+  const restaurant = JSON.parse(localStorage.getItem('restaurant'));
+
+  changeTitle(restaurant);
+
+  fetch(`./db/${restaurant.products}`)
+    .then((response) => response.json())
+    .then((data) => renderItems(data))
+    .catch((error) => {
+      console.log(error);
+    });
+} else {
+  window.location.href = '/';
+}

@@ -3,18 +3,20 @@ const cardsRestaurants = document.querySelector('.cards-restaurants');
 console.log(cardsRestaurants);
 
 const renderItems = (data) => {
-  data.forEach(
-    ({ image, kitchen, name, price, products, stars, time_of_delivery }) => {
-      const a = document.createElement('a');
+  data.forEach((item) => {
+    const a = document.createElement('a');
 
-      a.setAttribute('href', '/restaurant.html');
+    const { image, kitchen, name, price, products, stars, time_of_delivery } =
+      item;
 
-      a.classList.add('card');
-      a.classList.add('card-restaurant');
+    a.setAttribute('href', '/restaurant.html');
 
-      a.dataset.products = products;
+    a.classList.add('card');
+    a.classList.add('card-restaurant');
 
-      a.innerHTML = `
+    a.dataset.products = products;
+
+    a.innerHTML = `
       <img src="${image}" alt="${name}" class="card-image" />
       <div class="card-text">
         <div class="card-heading">
@@ -31,10 +33,16 @@ const renderItems = (data) => {
       </div>
       `;
 
-      cardsRestaurants.append(a);
-      console.log(a);
-    }
-  );
+    a.addEventListener('click', (event) => {
+      event.preventDefault();
+
+      localStorage.setItem('restaurant', JSON.stringify(item));
+
+      window.location.href = '/restaurant.html';
+    });
+
+    cardsRestaurants.append(a);
+  });
 };
 
 fetch('./db/partners.json')
